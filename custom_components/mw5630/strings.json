@@ -6,7 +6,6 @@
         "description": "Connect to your Netis router. The password is the same as your Wi-Fi password. Leave the password empty if your router is in factory-default state (no password set). See {docs} for details.",
         "data": {
           "host": "Host (IP address)",
-          "username": "Username",
           "password": "Password (leave empty if default)"
         }
       },
