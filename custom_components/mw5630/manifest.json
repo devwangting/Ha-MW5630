@@ -1,5 +1,5 @@
 {
-  "domain": "netis",
+  "domain": "mw5630",
   "name": "Netis Router",
   "codeowners": ["@devwangting"],
   "config_flow": true,
