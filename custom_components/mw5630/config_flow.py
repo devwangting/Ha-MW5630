@@ -22,13 +22,13 @@ from typing import Any
 
 import voluptuous as vol
 from homeassistant import config_entries
-from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_USERNAME
+from homeassistant.const import CONF_HOST, CONF_PASSWORD
 from homeassistant.core import callback
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .api import NetisAuthError, NetisClient, NetisConnectionError, NetisError
-from .const import DEFAULT_HOST, DEFAULT_USERNAME, DOMAIN
+from .const import DEFAULT_HOST, DOMAIN
 
 # Schema for the initial setup form shown to the user.
 # Password allows empty string: Netis routers in factory-default state have
@@ -36,13 +36,12 @@ from .const import DEFAULT_HOST, DEFAULT_USERNAME, DOMAIN
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_HOST, default=DEFAULT_HOST): str,
-        vol.Required(CONF_USERNAME, default=DEFAULT_USERNAME): str,
         vol.Required(CONF_PASSWORD, default=""): str,
     }
 )
 
 
-async def _test_connection(hass, host: str, username: str, password: str) -> str | None:
+async def _test_connection(hass, host: str, password: str) -> str | None:
     """Try to log in and fetch system info. Returns the model on success.
 
     Returns ``None`` on success (credentials valid, router reachable), or an
@@ -52,7 +51,6 @@ async def _test_connection(hass, host: str, username: str, password: str) -> str
     client = NetisClient(
         session=async_get_clientsession(hass),
         host=host,
-        username=username,
         password=password,
     )
     try:
@@ -105,7 +103,6 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             error = await _test_connection(
                 self.hass,
                 host,
-                user_input[CONF_USERNAME],
                 user_input[CONF_PASSWORD],
             )
             if error is None:
