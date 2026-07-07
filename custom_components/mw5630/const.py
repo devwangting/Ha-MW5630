@@ -14,7 +14,7 @@ Key concepts:
     valid for 300 seconds. All subsequent requests carry it in ``params[0]``.
 """
 
-DOMAIN = "netis"
+DOMAIN = "mw5630"
 
 # Config entry fields
 CONF_HOST = "host"
