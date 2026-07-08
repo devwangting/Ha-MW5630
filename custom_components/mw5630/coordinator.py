@@ -20,7 +20,7 @@ import logging
 from datetime import timedelta
 
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_USERNAME
+from homeassistant.const import CONF_HOST, CONF_PASSWORD
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
@@ -56,8 +56,6 @@ class NetisCoordinator(DataUpdateCoordinator[NetisData]):
         self.client = NetisClient(
             session=async_get_clientsession(hass),
             host=entry.data[CONF_HOST],
-            # Username defaults to "root" (the only valid user on this firmware).
-            username=entry.data.get(CONF_USERNAME, "root"),
             password=entry.data[CONF_PASSWORD],
         )
 

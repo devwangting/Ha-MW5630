@@ -13,7 +13,7 @@ send_sms:
     Only works on router models with a SIM card inserted and LTE connected.
   target:
     device:
-      integration: netis
+      integration: mw5630
   fields:
     phone:
       name: Phone number
@@ -40,7 +40,7 @@ set_speed_limit:
     Set both values to 0 to remove the limit.
   target:
     device:
-      integration: netis
+      integration: mw5630
   fields:
     mac:
       name: Device MAC address

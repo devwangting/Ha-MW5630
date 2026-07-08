@@ -42,7 +42,7 @@ STEP_USER_DATA_SCHEMA = vol.Schema(
 
 
 async def _test_connection(hass, host: str, password: str) -> str | None:
-    """Try to log in and fetch system info. Returns the model on success.
+    """Try to log in and fetch system info.
 
     Returns ``None`` on success (credentials valid, router reachable), or an
     error string key on failure. The error string maps to a user-facing
@@ -55,21 +55,21 @@ async def _test_connection(hass, host: str, password: str) -> str | None:
     )
     try:
         await client.login()
-        info = await client.get_system_info()
+        await client.get_system_info()
     except NetisAuthError:
         return "invalid_auth"
     except NetisConnectionError:
         return "cannot_connect"
     except NetisError:
         return "unknown"
-    return info.get("model") or "Netis Router"
+    return None
 
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a config flow for Netis Router.
 
     Inherits from ``config_entries.ConfigFlow`` with ``domain=DOMAIN`` so HA
-    automatically registers this flow for the "netis" integration.
+    automatically registers this flow for the "mw5630" integration.
     """
 
     VERSION = 1
